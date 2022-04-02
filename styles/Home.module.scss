@@ -1,0 +1,15 @@
+@import './config';
+
+.pfpFrame {
+	border: 3px solid $tertiary-color;
+	display: flex;
+	width: 100%;
+}
+
+.doubleFrame {
+	border: 2px solid $tertiary-color;
+	width: 100%;
+	height: 100%;
+	top: 5%;
+	right: 5%;
+}
