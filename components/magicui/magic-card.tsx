@@ -135,7 +135,7 @@ export function MagicCard({
           reset();
           setIsHovering(false);
         }}
-        className="relative overflow-hidden rounded-[inherit] border border-zinc-200 dark:border-white/[0.08] bg-white dark:bg-zinc-900/80 backdrop-blur-2xl shadow-sm shadow-zinc-900/5 dark:shadow-black/20"
+        className="relative overflow-hidden rounded-[inherit] border border-zinc-200 dark:border-white/[0.08] bg-white dark:bg-zinc-900/80 backdrop-blur-sm shadow-sm shadow-zinc-900/5 dark:shadow-black/20"
       >
         {/* Spotlight overlay - visible on hover */}
         <motion.div

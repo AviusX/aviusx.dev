@@ -38,8 +38,8 @@ export default function About() {
       <div className="glow-line" />
       <div className="glow-line-bloom" />
       {/* Decorative floating accents */}
-      <div className="pointer-events-none absolute top-24 right-[8%] w-80 h-80 rounded-full bg-gradient-to-bl from-indigo-500/10 to-violet-500/10 dark:from-indigo-500/5 dark:to-violet-500/5 blur-3xl animate-orb-float-reverse" />
-      <div className="pointer-events-none absolute bottom-20 left-[15%] w-60 h-60 rounded-full bg-gradient-to-tr from-purple-500/8 to-indigo-500/8 dark:from-purple-500/4 dark:to-indigo-500/4 blur-3xl animate-orb-float" />
+      <div className="pointer-events-none absolute top-24 right-[8%] w-80 h-80 rounded-full bg-gradient-to-bl from-indigo-500/10 to-violet-500/10 dark:from-indigo-500/5 dark:to-violet-500/5 blur-2xl animate-orb-float-reverse will-change-transform" />
+      <div className="pointer-events-none absolute bottom-20 left-[15%] w-60 h-60 rounded-full bg-gradient-to-tr from-purple-500/8 to-indigo-500/8 dark:from-purple-500/4 dark:to-indigo-500/4 blur-2xl animate-orb-float will-change-transform" />
       <div className="mx-auto max-w-6xl">
         <SectionHeading label="About" title="A bit about me" />
 

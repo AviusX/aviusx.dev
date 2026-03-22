@@ -26,7 +26,7 @@ const techStack = [
 
 function TechPill({ name }: { name: string }) {
   return (
-    <div className="flex items-center gap-2 rounded-full border border-zinc-300 dark:border-white/[0.08] bg-white dark:bg-white/[0.03] px-5 py-2.5 backdrop-blur-xl shadow-sm shadow-zinc-900/5 dark:shadow-black/10 mx-2">
+    <div className="flex items-center gap-2 rounded-full border border-zinc-300 dark:border-white/[0.08] bg-white/95 dark:bg-zinc-900/80 px-5 py-2.5 shadow-sm shadow-zinc-900/5 dark:shadow-black/10 mx-2">
       <span className="text-sm font-medium text-zinc-800 dark:text-zinc-300 whitespace-nowrap">
         {name}
       </span>
