@@ -134,6 +134,15 @@ export default function WarpGrid() {
 
       ctx!.clearRect(0, 0, w, h);
 
+      // Fade in after hero section — invisible at top, fully visible once scrolled past hero
+      const heroHeight = window.innerHeight;
+      const scrollAlpha = Math.min(1, Math.max(0, (scroll - heroHeight * 0.3) / (heroHeight * 0.5)));
+      if (scrollAlpha < 0.01) {
+        rafRef.current = requestAnimationFrame(draw);
+        return; // Skip drawing entirely when invisible (perf)
+      }
+      ctx!.globalAlpha = scrollAlpha;
+
       // --- Light mode: much more subtle ---
       const modeAlphaScale = isDark ? 1.0 : 0.5;
 
@@ -271,6 +280,7 @@ export default function WarpGrid() {
         }
       }
 
+      ctx!.globalAlpha = 1; // Reset for next frame's clearRect
       rafRef.current = requestAnimationFrame(draw);
     }
 
