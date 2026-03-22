@@ -34,6 +34,8 @@ export default function WarpGrid() {
   const scrollRef = useRef(0);
   const darkRef = useRef(1.0);
   const rafRef = useRef<number>(0);
+  const isRunningRef = useRef(false);
+  const drawRef = useRef<(() => void) | null>(null);
   const timeRef = useRef(0);
   const dprRef = useRef(1);
 
@@ -57,7 +59,7 @@ export default function WarpGrid() {
     };
   }, [config?.mobile]);
 
-  // Track scroll position
+  // Track scroll position and restart RAF when WarpGrid becomes visible
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
@@ -65,6 +67,15 @@ export default function WarpGrid() {
         ticking = true;
         requestAnimationFrame(() => {
           scrollRef.current = window.scrollY;
+          // Restart the animation loop if WarpGrid should be visible
+          if (!isRunningRef.current && drawRef.current) {
+            const heroHeight = window.innerHeight;
+            const scrollAlpha = Math.min(1, Math.max(0, (scrollRef.current - heroHeight * 0.3) / (heroHeight * 0.5)));
+            if (scrollAlpha >= 0.01) {
+              isRunningRef.current = true;
+              rafRef.current = requestAnimationFrame(drawRef.current);
+            }
+          }
           ticking = false;
         });
       }
@@ -138,8 +149,9 @@ export default function WarpGrid() {
       const heroHeight = window.innerHeight;
       const scrollAlpha = Math.min(1, Math.max(0, (scroll - heroHeight * 0.3) / (heroHeight * 0.5)));
       if (scrollAlpha < 0.01) {
-        rafRef.current = requestAnimationFrame(draw);
-        return; // Skip drawing entirely when invisible (perf)
+        // Stop the loop entirely — the scroll listener will restart it
+        isRunningRef.current = false;
+        return;
       }
       ctx!.globalAlpha = scrollAlpha;
 
@@ -259,19 +271,27 @@ export default function WarpGrid() {
         }
       }
 
-      // Intersection dots
+      // Intersection dots — batched into a single path for non-boosted dots
+      ctx!.beginPath();
       for (let i = 0; i <= cols; i++) {
         for (let j = 0; j <= rows; j++) {
           const p = points[i][j];
-          const pulse = Math.sin(t * 2 + i * 0.5 + j * 0.3) * 0.4 + 0.6;
-          let alpha = dotAlpha * pulse * modeAlphaScale;
+          // Skip dots near mouse — they get individual styling below
+          if (!mobile && mouse.x > -1000 && p.mDist < warpRadius) continue;
+          ctx!.moveTo(p.x + dotSize, p.y);
+          ctx!.arc(p.x, p.y, dotSize, 0, Math.PI * 2);
+        }
+      }
+      ctx!.fillStyle = `rgba(167, 139, 250, ${dotAlpha * 0.8 * modeAlphaScale})`;
+      ctx!.fill();
 
-          // Mouse proximity boost
-          if (!mobile && mouse.x > -1000 && p.mDist < warpRadius) {
-            alpha += (1 - p.mDist / warpRadius) * 0.6;
-          }
-
-          if (alpha > 0.01) {
+      // Mouse-boosted dots drawn individually for per-dot alpha
+      if (!mobile && mouse.x > -1000) {
+        for (let i = 0; i <= cols; i++) {
+          for (let j = 0; j <= rows; j++) {
+            const p = points[i][j];
+            if (p.mDist >= warpRadius) continue;
+            const alpha = dotAlpha * modeAlphaScale + (1 - p.mDist / warpRadius) * 0.6;
             ctx!.beginPath();
             ctx!.arc(p.x, p.y, dotSize, 0, Math.PI * 2);
             ctx!.fillStyle = `rgba(167, 139, 250, ${alpha})`;
@@ -284,9 +304,13 @@ export default function WarpGrid() {
       rafRef.current = requestAnimationFrame(draw);
     }
 
+    drawRef.current = draw;
+    isRunningRef.current = true;
     rafRef.current = requestAnimationFrame(draw);
 
     return () => {
+      drawRef.current = null;
+      isRunningRef.current = false;
       cancelAnimationFrame(rafRef.current);
       window.removeEventListener("resize", handleResize);
     };

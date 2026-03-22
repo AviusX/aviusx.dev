@@ -4,6 +4,11 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef, useMemo, useState } from "react";
 import * as THREE from "three";
 
+// Module-scoped opacity ref — bridges the outer ScrollBackground component
+// (which tracks scroll-based opacity) with the inner NetworkScene (inside Canvas).
+// Safe because page.tsx renders exactly one ScrollBackground instance.
+const globalOpacityRef = { current: 1 };
+
 // ============================================================
 // HOOKS
 // ============================================================
@@ -456,8 +461,22 @@ function NetworkScene({
     return geo;
   }, [pulseCount]);
 
+  // Track visibility transitions to clear GPU buffer once on hide
+  const wasVisibleRef = useRef(true);
+
   // ---- FRAME LOOP ----
   useFrame((state, delta) => {
+    // Skip ALL computation when the background is fully transparent
+    const isVisible = globalOpacityRef.current > 0;
+    if (!isVisible) {
+      if (wasVisibleRef.current) {
+        state.gl.clear();
+        wasVisibleRef.current = false;
+      }
+      return;
+    }
+    wasVisibleRef.current = true;
+
     const dt = Math.min(delta, 0.05);
     const time = state.clock.elapsedTime;
     const s = smooth.current;
@@ -653,7 +672,9 @@ export default function ScrollBackground() {
           const max = document.documentElement.scrollHeight - window.innerHeight;
           const progress = max > 0 ? window.scrollY / max : 0;
           // Fade from 1 → 0 between 0% and 15% scroll progress
-          setOpacity(Math.max(0, 1 - progress / 0.15));
+          const newOpacity = Math.max(0, 1 - progress / 0.15);
+          globalOpacityRef.current = newOpacity;
+          setOpacity(newOpacity);
           ticking = false;
         });
       }
