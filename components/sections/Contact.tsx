@@ -41,12 +41,8 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-32 px-6 section-grid section-blob-left overflow-hidden">
+    <section id="contact" className="relative py-32 px-6 section-grid overflow-hidden">
       <div className="glow-line" />
-      <div className="glow-line-bloom" />
-      {/* Decorative floating accents */}
-      <div className="pointer-events-none absolute top-10 right-[20%] w-60 h-60 rounded-full bg-gradient-to-bl from-indigo-500/10 to-violet-500/10 dark:from-indigo-500/[0.02] dark:to-violet-500/[0.02] blur-3xl animate-orb-float" />
-      <div className="pointer-events-none absolute bottom-16 left-[10%] w-72 h-72 rounded-full bg-gradient-to-tr from-purple-500/8 to-indigo-500/8 dark:from-purple-500/[0.01] dark:to-indigo-500/[0.01] blur-3xl animate-orb-float-reverse" />
       <div className="mx-auto max-w-6xl">
         <SectionHeading label="Contact" title="Let's work together" />
 

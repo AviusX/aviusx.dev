@@ -33,13 +33,9 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative py-32 px-6 section-dots section-blob-left overflow-hidden"
+      className="relative py-32 px-6 section-dots overflow-hidden"
     >
       <div className="glow-line" />
-      <div className="glow-line-bloom" />
-      {/* Decorative floating accents */}
-      <div className="pointer-events-none absolute top-24 right-[8%] w-80 h-80 rounded-full bg-gradient-to-bl from-indigo-500/10 to-violet-500/10 dark:from-indigo-500/[0.02] dark:to-violet-500/[0.02] blur-3xl animate-orb-float-reverse" />
-      <div className="pointer-events-none absolute bottom-20 left-[15%] w-60 h-60 rounded-full bg-gradient-to-tr from-purple-500/8 to-indigo-500/8 dark:from-purple-500/[0.01] dark:to-indigo-500/[0.01] blur-3xl animate-orb-float" />
       <div className="mx-auto max-w-6xl">
         <SectionHeading label="About" title="A bit about me" />
 

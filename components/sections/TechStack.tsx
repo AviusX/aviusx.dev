@@ -40,9 +40,8 @@ export default function TechStack() {
   const secondRow = techStack.slice(half);
 
   return (
-    <section className="relative py-24 overflow-hidden section-dots section-blob-right">
+    <section className="relative py-24 overflow-hidden section-dots">
       <div className="glow-line" />
-      <div className="glow-line-bloom" />
       <div className="mx-auto max-w-6xl px-6 mb-12">
         <BlurFade delay={0.1}>
           <p className="text-center text-sm font-medium tracking-wider uppercase text-zinc-500 dark:text-zinc-500">

@@ -8,12 +8,8 @@ import { projects } from "@/lib/data";
 
 export default function Projects() {
   return (
-    <section id="projects" className="relative py-32 px-6 section-dots section-blob-left overflow-hidden">
+    <section id="projects" className="relative py-32 px-6 section-dots overflow-hidden">
       <div className="glow-line" />
-      <div className="glow-line-bloom" />
-      {/* Decorative floating accents */}
-      <div className="pointer-events-none absolute top-16 left-[15%] w-64 h-64 rounded-full bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-500/[0.02] dark:to-purple-500/[0.02] blur-3xl animate-orb-float-reverse" />
-      <div className="pointer-events-none absolute bottom-20 right-[10%] w-80 h-80 rounded-full bg-gradient-to-tl from-violet-500/8 to-indigo-500/8 dark:from-violet-500/[0.01] dark:to-indigo-500/[0.01] blur-3xl animate-orb-float" />
       <div className="mx-auto max-w-6xl">
         <SectionHeading label="Projects" title="Things I've built" />
 
