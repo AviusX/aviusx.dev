@@ -35,13 +35,15 @@ export default function WarpGrid() {
   const darkRef = useRef(1.0);
   const rafRef = useRef<number>(0);
   const timeRef = useRef(0);
+  const dprRef = useRef(1);
 
   // Track mouse position
   useEffect(() => {
     if (config?.mobile) return; // No mouse tracking on mobile
     const onMove = (e: MouseEvent) => {
-      mouseRef.current.x = e.clientX * (window.devicePixelRatio || 1);
-      mouseRef.current.y = e.clientY * (window.devicePixelRatio || 1);
+      // Use the same capped DPR as the canvas to keep coordinates aligned
+      mouseRef.current.x = e.clientX * dprRef.current;
+      mouseRef.current.y = e.clientY * dprRef.current;
     };
     const onLeave = () => {
       mouseRef.current.x = -9999;
@@ -93,6 +95,7 @@ export default function WarpGrid() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const dpr = Math.min(window.devicePixelRatio || 1, config?.mobile ? 1 : 2);
+    dprRef.current = dpr;
     canvas.width = window.innerWidth * dpr;
     canvas.height = window.innerHeight * dpr;
     canvas.style.width = `${window.innerWidth}px`;
@@ -112,8 +115,8 @@ export default function WarpGrid() {
     window.addEventListener("resize", handleResize);
 
     const { cols, rows, mobile } = config;
-    const warpRadius = mobile ? 0 : 180;
-    const warpStrength = 35;
+    const warpRadius = mobile ? 0 : 300;
+    const warpStrength = 60;
     const lineAlphaBase = 0.10;
     const lineAlphaPulse = 0.03;
     const dotAlpha = 0.12;
@@ -229,8 +232,8 @@ export default function WarpGrid() {
                 ctx!.beginPath();
                 ctx!.moveTo(p.x, p.y);
                 ctx!.lineTo(p2.x, p2.y);
-                ctx!.strokeStyle = `rgba(139, 92, 246, ${brightness * 0.3 * modeAlphaScale})`;
-                ctx!.lineWidth = 1.8;
+                ctx!.strokeStyle = `rgba(139, 92, 246, ${brightness * 0.5 * modeAlphaScale})`;
+                ctx!.lineWidth = 2.2;
                 ctx!.stroke();
               }
               if (j < rows) {
@@ -238,8 +241,8 @@ export default function WarpGrid() {
                 ctx!.beginPath();
                 ctx!.moveTo(p.x, p.y);
                 ctx!.lineTo(p2.x, p2.y);
-                ctx!.strokeStyle = `rgba(99, 102, 241, ${brightness * 0.3 * modeAlphaScale})`;
-                ctx!.lineWidth = 1.8;
+                ctx!.strokeStyle = `rgba(99, 102, 241, ${brightness * 0.5 * modeAlphaScale})`;
+                ctx!.lineWidth = 2.2;
                 ctx!.stroke();
               }
             }
@@ -256,7 +259,7 @@ export default function WarpGrid() {
 
           // Mouse proximity boost
           if (!mobile && mouse.x > -1000 && p.mDist < warpRadius) {
-            alpha += (1 - p.mDist / warpRadius) * 0.4;
+            alpha += (1 - p.mDist / warpRadius) * 0.6;
           }
 
           if (alpha > 0.01) {
