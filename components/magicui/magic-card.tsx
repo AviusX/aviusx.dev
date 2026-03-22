@@ -135,7 +135,7 @@ export function MagicCard({
           reset();
           setIsHovering(false);
         }}
-        className="relative overflow-hidden rounded-[inherit] border border-zinc-200 dark:border-white/[0.08] bg-white dark:bg-zinc-900/80 backdrop-blur-2xl shadow-sm shadow-zinc-900/5 dark:shadow-black/20"
+        className="relative h-full overflow-hidden rounded-[inherit] border border-zinc-200 dark:border-white/[0.08] bg-white/95 dark:bg-zinc-950/70 backdrop-blur-3xl backdrop-saturate-150 shadow-sm shadow-zinc-900/5 dark:shadow-black/30 dark:ring-1 dark:ring-white/[0.05]"
       >
         {/* Spotlight overlay - visible on hover */}
         <motion.div
@@ -145,7 +145,7 @@ export function MagicCard({
             opacity: isHovering ? gradientOpacity : 0,
           }}
         />
-        <div className="relative">{children}</div>
+        <div className="relative h-full">{children}</div>
       </div>
     </div>
   );

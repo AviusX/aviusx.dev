@@ -45,8 +45,8 @@ export default function Contact() {
       <div className="glow-line" />
       <div className="glow-line-bloom" />
       {/* Decorative floating accents */}
-      <div className="pointer-events-none absolute top-10 right-[20%] w-60 h-60 rounded-full bg-gradient-to-bl from-indigo-500/10 to-violet-500/10 dark:from-indigo-500/5 dark:to-violet-500/5 blur-3xl animate-orb-float" />
-      <div className="pointer-events-none absolute bottom-16 left-[10%] w-72 h-72 rounded-full bg-gradient-to-tr from-purple-500/8 to-indigo-500/8 dark:from-purple-500/4 dark:to-indigo-500/4 blur-3xl animate-orb-float-reverse" />
+      <div className="pointer-events-none absolute top-10 right-[20%] w-60 h-60 rounded-full bg-gradient-to-bl from-indigo-500/10 to-violet-500/10 dark:from-indigo-500/[0.02] dark:to-violet-500/[0.02] blur-3xl animate-orb-float" />
+      <div className="pointer-events-none absolute bottom-16 left-[10%] w-72 h-72 rounded-full bg-gradient-to-tr from-purple-500/8 to-indigo-500/8 dark:from-purple-500/[0.01] dark:to-indigo-500/[0.01] blur-3xl animate-orb-float-reverse" />
       <div className="mx-auto max-w-6xl">
         <SectionHeading label="Contact" title="Let's work together" />
 
@@ -100,7 +100,7 @@ export default function Contact() {
                     rel={link.external ? "noopener noreferrer" : undefined}
                     className="group flex items-center gap-3 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
                   >
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-100 dark:bg-white/[0.06] group-hover:bg-indigo-500/10 transition-colors">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-100 dark:bg-white/[0.08] backdrop-blur-xl group-hover:bg-indigo-500/10 transition-colors">
                       <span className="group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                         {link.icon}
                       </span>

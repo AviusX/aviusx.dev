@@ -51,6 +51,13 @@ export default function RootLayout({
             __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark')}else if(!t&&window.matchMedia('(prefers-color-scheme:light)').matches){document.documentElement.classList.remove('dark')}}catch(e){}})()`,
           }}
         />
+        <link rel="dns-prefetch" href="https://github.com" />
+        <link rel="dns-prefetch" href="https://linkedin.com" />
+        <link rel="dns-prefetch" href="https://instagram.com" />
+        <link rel="dns-prefetch" href="https://thesys.dev" />
+        <link rel="preconnect" href="https://thesys.dev" crossOrigin="anonymous" />
+        <meta name="theme-color" content="#050507" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#f4f4f7" media="(prefers-color-scheme: light)" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
