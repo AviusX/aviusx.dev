@@ -33,13 +33,9 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative py-32 px-6 section-dots section-blob-left overflow-hidden"
+      className="relative py-32 px-6 section-dots overflow-hidden"
     >
       <div className="glow-line" />
-      <div className="glow-line-bloom" />
-      {/* Decorative floating accents */}
-      <div className="pointer-events-none absolute top-24 right-[8%] w-80 h-80 rounded-full bg-gradient-to-bl from-indigo-500/10 to-violet-500/10 dark:from-indigo-500/5 dark:to-violet-500/5 blur-3xl animate-orb-float-reverse" />
-      <div className="pointer-events-none absolute bottom-20 left-[15%] w-60 h-60 rounded-full bg-gradient-to-tr from-purple-500/8 to-indigo-500/8 dark:from-purple-500/4 dark:to-indigo-500/4 blur-3xl animate-orb-float" />
       <div className="mx-auto max-w-6xl">
         <SectionHeading label="About" title="A bit about me" />
 
@@ -79,7 +75,7 @@ export default function About() {
                     href={sub.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`group relative inline-flex items-center gap-2 rounded-full border border-zinc-300 dark:border-white/[0.1] bg-white dark:bg-zinc-900/60 px-4 py-2 text-sm font-medium text-zinc-800 dark:text-zinc-300 backdrop-blur-xl shadow-sm transition-all hover:border-indigo-400/50 hover:shadow-lg hover:shadow-indigo-500/5 ${
+                    className={`group relative inline-flex items-center gap-2 rounded-full border border-zinc-300 dark:border-white/[0.1] bg-white/95 dark:bg-zinc-950/50 px-4 py-2 text-sm font-medium text-zinc-800 dark:text-zinc-300 backdrop-blur-2xl backdrop-saturate-150 shadow-sm transition-all hover:border-indigo-400/50 hover:shadow-lg hover:shadow-indigo-500/5 ${
                       sub.comingSoon ? "pointer-events-none opacity-60" : ""
                     }`}
                   >
@@ -101,7 +97,7 @@ export default function About() {
             {interests.map((interest, i) => (
               <BlurFade key={interest.label} delay={0.15 + i * 0.1}>
                 <MagicCard className="h-full">
-                  <div className="p-5">
+                  <div className="flex h-full flex-col p-5">
                     <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
                       {iconMap[interest.icon]}
                     </div>

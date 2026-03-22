@@ -1,20 +1,34 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Navbar from "@/components/ui/Navbar";
 import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
-import TechStack from "@/components/sections/TechStack";
-import Experience from "@/components/sections/Experience";
-import Projects from "@/components/sections/Projects";
-import Contact from "@/components/sections/Contact";
-import Footer from "@/components/sections/Footer";
 import FloatingDock from "@/components/ui/FloatingDock";
-import CyberMascot from "@/components/ui/CyberMascot";
+
+const ScrollBackground = dynamic(
+  () => import("@/components/three/ScrollBackground"),
+  { ssr: false }
+);
+
+const About = dynamic(() => import("@/components/sections/About"));
+const TechStack = dynamic(() => import("@/components/sections/TechStack"));
+const Experience = dynamic(() => import("@/components/sections/Experience"));
+const Projects = dynamic(() => import("@/components/sections/Projects"));
+const Contact = dynamic(() => import("@/components/sections/Contact"));
+const Footer = dynamic(() => import("@/components/sections/Footer"));
+const CyberMascot = dynamic(() => import("@/components/ui/CyberMascot"), {
+  ssr: false,
+});
+
+const WarpGrid = dynamic(() => import("@/components/canvas/WarpGrid"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
     <>
-      <div className="gradient-mesh" />
+      <ScrollBackground />
+      <WarpGrid />
       <div className="noise-overlay" />
 
       <Navbar />

@@ -26,7 +26,7 @@ const techStack = [
 
 function TechPill({ name }: { name: string }) {
   return (
-    <div className="flex items-center gap-2 rounded-full border border-zinc-300 dark:border-white/[0.08] bg-white dark:bg-white/[0.03] px-5 py-2.5 backdrop-blur-xl shadow-sm shadow-zinc-900/5 dark:shadow-black/10 mx-2">
+    <div className="flex items-center gap-2 rounded-full border border-zinc-300 dark:border-white/[0.10] bg-white/95 dark:bg-zinc-950/50 px-5 py-2.5 backdrop-blur-2xl backdrop-saturate-150 shadow-sm shadow-zinc-900/5 dark:shadow-black/10 mx-2">
       <span className="text-sm font-medium text-zinc-800 dark:text-zinc-300 whitespace-nowrap">
         {name}
       </span>
@@ -40,9 +40,8 @@ export default function TechStack() {
   const secondRow = techStack.slice(half);
 
   return (
-    <section className="relative py-24 overflow-hidden section-dots section-blob-right">
+    <section className="relative py-24 overflow-hidden section-dots">
       <div className="glow-line" />
-      <div className="glow-line-bloom" />
       <div className="mx-auto max-w-6xl px-6 mb-12">
         <BlurFade delay={0.1}>
           <p className="text-center text-sm font-medium tracking-wider uppercase text-zinc-500 dark:text-zinc-500">

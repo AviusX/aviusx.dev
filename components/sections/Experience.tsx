@@ -8,12 +8,8 @@ import { experiences } from "@/lib/data";
 
 export default function Experience() {
   return (
-    <section id="experience" className="relative py-32 px-6 section-grid section-blob-right overflow-hidden">
+    <section id="experience" className="relative py-32 px-6 section-grid overflow-hidden">
       <div className="glow-line" />
-      <div className="glow-line-bloom" />
-      {/* Decorative floating accents */}
-      <div className="pointer-events-none absolute top-20 right-[10%] w-72 h-72 rounded-full bg-gradient-to-br from-indigo-500/10 to-violet-500/10 dark:from-indigo-500/5 dark:to-violet-500/5 blur-3xl animate-orb-float" />
-      <div className="pointer-events-none absolute bottom-32 left-[5%] w-56 h-56 rounded-full bg-gradient-to-tr from-violet-500/8 to-indigo-500/8 dark:from-violet-500/4 dark:to-indigo-500/4 blur-3xl animate-orb-float-reverse" />
       <div className="mx-auto max-w-6xl">
         <SectionHeading label="Experience" title="Where I've worked" />
 

@@ -21,10 +21,10 @@
 .dark {
   --background: #050507;
   --foreground: #ededed;
-  --card-bg: rgba(15, 15, 20, 0.82);
+  --card-bg: rgba(10, 10, 15, 0.75);
   --card-border: rgba(255, 255, 255, 0.07);
   --glass-blur: 24px;
-  --magic-card-bg: rgba(12, 12, 18, 0.85);
+  --magic-card-bg: rgba(8, 8, 14, 0.70);
   --section-alt: rgba(99, 102, 241, 0.015);
   --dot-color: rgba(255, 255, 255, 0.06);
   --grid-color: rgba(255, 255, 255, 0.04);
@@ -45,8 +45,7 @@
   --animate-float: float 6s ease-in-out infinite;
   --animate-background-position-spin: background-position-spin 3s infinite
     alternate;
-  --animate-orb-float: orb-float 20s ease-in-out infinite;
-  --animate-orb-float-reverse: orb-float-reverse 25s ease-in-out infinite;
+
   --animate-scan-line: scan-line 8s linear infinite;
 }
 
@@ -96,21 +95,6 @@
   100% { background-position: bottom center; }
 }
 
-@keyframes orb-float {
-  0% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(60px, -40px) scale(1.1); }
-  50% { transform: translate(-30px, 50px) scale(0.95); }
-  75% { transform: translate(40px, 30px) scale(1.05); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-
-@keyframes orb-float-reverse {
-  0% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(-50px, 30px) scale(1.08); }
-  50% { transform: translate(40px, -60px) scale(0.92); }
-  75% { transform: translate(-30px, -20px) scale(1.1); }
-  100% { transform: translate(0, 0) scale(1); }
-}
 
 @keyframes scan-line {
   0% { transform: translateY(-100%); }
@@ -164,133 +148,32 @@ body {
   mix-blend-mode: overlay;
 }
 
-/* ═══════════════════════════════════════════
-   GRADIENT MESH (global background layer)
-   ═══════════════════════════════════════════ */
-
-.gradient-mesh {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.gradient-mesh::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background:
-    radial-gradient(ellipse at 15% 40%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 85% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 90%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 60% 50%, rgba(168, 85, 247, 0.06) 0%, transparent 40%);
-  animation: shine 30s linear infinite;
-}
-
-.dark .gradient-mesh::before {
-  background:
-    radial-gradient(ellipse at 15% 40%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 85% 20%, rgba(139, 92, 246, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 90%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
-    radial-gradient(ellipse at 60% 50%, rgba(168, 85, 247, 0.02) 0%, transparent 40%);
-}
+/* gradient-mesh replaced by WebGL ScrollBackground */
 
 /* ═══════════════════════════════════════════
    SECTION BACKGROUNDS — dramatic & alive
    ═══════════════════════════════════════════ */
 
-/* Dot pattern — more visible */
+/* Dot pattern — light mode only, WebGL background provides visual interest in dark mode */
 .section-dots {
-  background-image: radial-gradient(var(--dot-color) 1.2px, transparent 1.2px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-/* Grid pattern — more visible */
+/* Grid pattern — light mode only */
 .section-grid {
   background-image:
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-size: 48px 48px;
 }
 
-/* Animated floating orb (left) — bigger, more saturated */
-.section-blob-left::before {
-  content: "";
-  position: absolute;
-  top: 5%;
-  left: -12%;
-  width: 700px;
-  height: 700px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.18), transparent 65%);
-  pointer-events: none;
-  z-index: -1;
-  animation: orb-float 20s ease-in-out infinite;
+/* Remove patterns in dark mode — the 3D neural network IS the background */
+.dark .section-dots,
+.dark .section-grid {
+  background-image: none;
 }
 
-.dark .section-blob-left::before {
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent 65%);
-}
-
-/* Animated floating orb (right) — bigger, more saturated */
-.section-blob-right::before {
-  content: "";
-  position: absolute;
-  top: 10%;
-  right: -12%;
-  width: 650px;
-  height: 650px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.18), transparent 65%);
-  pointer-events: none;
-  z-index: -1;
-  animation: orb-float-reverse 25s ease-in-out infinite;
-}
-
-.dark .section-blob-right::before {
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 65%);
-}
-
-/* Second orb via ::after */
-.section-blob-left::after {
-  content: "";
-  position: absolute;
-  bottom: 0%;
-  right: 5%;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.14), transparent 65%);
-  pointer-events: none;
-  z-index: -1;
-  animation: orb-float-reverse 18s ease-in-out infinite;
-}
-
-.dark .section-blob-left::after {
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.06), transparent 65%);
-}
-
-.section-blob-right::after {
-  content: "";
-  position: absolute;
-  bottom: 5%;
-  left: 0%;
-  width: 450px;
-  height: 450px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.14), transparent 65%);
-  pointer-events: none;
-  z-index: -1;
-  animation: orb-float 22s ease-in-out infinite;
-}
-
-.dark .section-blob-right::after {
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.06), transparent 65%);
-}
 
 /* ═══════════════════════════════════════════
    ANIMATED GRADIENT ACCENT LINES
@@ -307,23 +190,9 @@ body {
 }
 
 .dark .glow-line {
-  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.25), rgba(139, 92, 246, 0.25), transparent);
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.12), rgba(139, 92, 246, 0.12), transparent);
 }
 
-.glow-line-bloom {
-  position: absolute;
-  top: -30px;
-  left: 15%;
-  right: 15%;
-  height: 60px;
-  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.15), transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.dark .glow-line-bloom {
-  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.07), transparent 70%);
-}
 
 /* ═══════════════════════════════════════════
    SCAN LINE EFFECT (subtle, for sections)
@@ -377,4 +246,32 @@ body {
 
 .dark .section-divider {
   background: linear-gradient(to right, transparent, var(--card-border), transparent);
+}
+
+/* ═══════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .noise-overlay::before {
+    display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   CONTENT VISIBILITY (below-fold optimization)
+   ═══════════════════════════════════════════ */
+
+section:not(#hero) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
 }
