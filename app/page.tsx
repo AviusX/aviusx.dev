@@ -20,10 +20,15 @@ const CyberMascot = dynamic(() => import("@/components/ui/CyberMascot"), {
   ssr: false,
 });
 
+const WarpGrid = dynamic(() => import("@/components/canvas/WarpGrid"), {
+  ssr: false,
+});
+
 export default function Home() {
   return (
     <>
       <ScrollBackground />
+      <WarpGrid />
       <div className="noise-overlay" />
 
       <Navbar />
