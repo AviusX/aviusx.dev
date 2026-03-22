@@ -642,6 +642,26 @@ export default function ScrollBackground() {
     setConfig({ mobile, reducedMotion });
   }, []);
 
+  const [opacity, setOpacity] = useState(1);
+
+  useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = max > 0 ? window.scrollY / max : 0;
+          // Fade from 1 → 0 between 0% and 15% scroll progress
+          setOpacity(Math.max(0, 1 - progress / 0.15));
+          ticking = false;
+        });
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   // SSR / initial render — show nothing (prevents hydration flash)
   if (config === null) return null;
 
@@ -656,6 +676,8 @@ export default function ScrollBackground() {
           pointerEvents: "none",
           background:
             "radial-gradient(ellipse at center, rgba(99,102,241,0.08), transparent 70%)",
+          opacity,
+          transition: "opacity 0.1s ease-out",
         }}
       />
     );
@@ -668,6 +690,8 @@ export default function ScrollBackground() {
         inset: 0,
         zIndex: -2,
         pointerEvents: "none",
+        opacity,
+        transition: "opacity 0.1s ease-out",
       }}
     >
       <Canvas
