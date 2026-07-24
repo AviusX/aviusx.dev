@@ -85,7 +85,7 @@ export default function CardShader({
     const readColors = () => ({
       bg: cssColor("--surface", [0.98, 0.97, 0.96]),
       ink: cssColor("--foreground", [0.08, 0.07, 0.06]),
-      accent: cssColor("--accent", [1, 0.29, 0]),
+      accent: cssColor("--accent-vivid", [1, 0.29, 0]),
     });
 
     let target = readColors();
