@@ -32,7 +32,7 @@ export default function OpengraphImage() {
           }}
         >
           <span>Founding Engineer at Thesys</span>
-          <span style={{ color: "#ff5c1a" }}>aviusx.dev</span>
+          <span style={{ color: "#2dd4bf" }}>aviusx.dev</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -48,7 +48,7 @@ export default function OpengraphImage() {
             }}
           >
             <div style={{ height: 2, flexGrow: 1, background: "#33312d" }} />
-            <div style={{ fontSize: 28, color: "#ff5c1a", fontStyle: "italic" }}>
+            <div style={{ fontSize: 28, color: "#2dd4bf", fontStyle: "italic" }}>
               also known online as AviusX
             </div>
           </div>

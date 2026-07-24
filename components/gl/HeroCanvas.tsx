@@ -79,7 +79,7 @@ export default function HeroCanvas() {
     const readColors = () => ({
       bg: cssColor("--background", [0.95, 0.94, 0.91]),
       ink: cssColor("--foreground", [0.08, 0.07, 0.06]),
-      accent: cssColor("--accent", [1, 0.29, 0]),
+      accent: cssColor("--accent-vivid", [0.08, 0.72, 0.65]),
     });
 
     let target = readColors();
