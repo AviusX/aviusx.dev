@@ -10,7 +10,7 @@ export default function Footer() {
         <p className="serif-accent text-sm text-muted">
           also known online as <span className="text-accent">AviusX</span>
         </p>
-        <ul className="flex items-center gap-5">
+        <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
           {socialLinks.map((link) => (
             <li key={link.label}>
               <a

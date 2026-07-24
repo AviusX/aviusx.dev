@@ -93,7 +93,7 @@ export default function Contact() {
           >
             <span
               aria-hidden
-              className="display block whitespace-nowrap text-[clamp(1.15rem,4.4vw,4.6rem)] uppercase tracking-tight text-foreground transition-colors duration-300 group-hover:text-accent"
+              className="display block whitespace-nowrap text-[clamp(0.8rem,4vw,4.6rem)] uppercase tracking-tight text-foreground transition-colors duration-300 group-hover:text-accent"
             >
               {email.split("").map((char, i) => (
                 <span key={i} className="email-char inline-block will-change-transform">

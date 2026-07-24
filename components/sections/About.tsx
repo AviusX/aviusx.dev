@@ -199,19 +199,19 @@ export default function About() {
             </div>
           </div>
 
-          <div className="about-cards grid grid-cols-2 gap-4">
+          <div className="about-cards grid grid-cols-1 gap-4 min-[480px]:grid-cols-2">
             {[colA, colB].map((col, ci) => (
               <div
                 key={ci}
-                className={`space-y-4 ${ci === 0 ? "about-col-a" : "about-col-b mt-10"}`}
+                className={`space-y-4 ${ci === 0 ? "about-col-a" : "about-col-b min-[480px]:mt-10"}`}
               >
                 {col.map((interest) => (
                   <Magnetic key={interest.label} strength={0.12}>
-                    <div className="about-card group border border-line bg-surface p-6 transition-colors duration-300 hover:border-accent">
+                    <div className="about-card group border border-line bg-surface p-5 transition-colors duration-300 hover:border-accent sm:p-6">
                       <div className="mb-4 inline-flex h-11 w-11 items-center justify-center border border-line text-accent transition-colors duration-300 group-hover:bg-accent group-hover:text-accent-ink">
                         {icons[interest.icon]}
                       </div>
-                      <h3 className="display text-lg uppercase text-foreground">
+                      <h3 className="display wrap-anywhere text-lg uppercase text-foreground">
                         {interest.label}
                       </h3>
                       <p className="mt-1.5 text-sm text-muted">
@@ -222,10 +222,10 @@ export default function About() {
                           href={interest.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="label mt-4 inline-flex items-center gap-1.5 !text-accent hover:underline"
+                          className="label wrap-anywhere mt-4 inline-flex items-center gap-1.5 !text-accent hover:underline"
                         >
                           {interest.linkLabel}
-                          <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <svg className="h-3 w-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                           </svg>
                         </a>
