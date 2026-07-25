@@ -8,7 +8,7 @@ import type { SiteContent } from "./types";
 
 const siteUrl = "https://devoke.dev";
 const mortalUrl = "https://aviusx.dev";
-const title = "देवो के देव — Devo ke Dev | God of All Gods";
+const title = "देवों के देव — Devo ke Dev | God of All Gods";
 const description =
   "Behold the divine manifestation of Hrijul Bhatnagar (AviusX) — God of All Gods, forger of generative UI, guardian of the frontend realms. Enter and witness divine feats.";
 const email = "hrijulbhatnagar@protonmail.com";
@@ -60,7 +60,7 @@ export const godContent: SiteContent = {
   },
 
   nav: {
-    logoText: "देवो के देव",
+    logoText: "देवों के देव",
     logoAccent: "ॐ",
     links: [
       { href: "#legend", label: "The Legend", index: "०१" },
@@ -74,7 +74,7 @@ export const godContent: SiteContent = {
 
   hero: {
     badge: "अवतार 01 · Founding Engineer at Thesys",
-    crown: "॥ देवो के देव ॥",
+    crown: "॥ देवों के देव ॥",
     titleLine1: "DEVO",
     titleLine2: "KE DEV",
     akaPre: "the god mortals know as ",
@@ -317,7 +317,7 @@ export const godContent: SiteContent = {
   },
 
   footer: {
-    copyrightName: "देवो के देव · All realms reserved",
+    copyrightName: "देवों के देव · All realms reserved",
     akaPre: "descends to the mortal realm as ",
     akaHighlight: "AviusX",
     akaHref: mortalUrl,
@@ -353,7 +353,7 @@ export const godContent: SiteContent = {
       "@id": `${siteUrl}/#website`,
       url: siteUrl,
       name: "Devo ke Dev",
-      alternateName: "देवो के देव",
+      alternateName: "देवों के देव",
       description,
       author: { "@id": `${siteUrl}/#person` },
     },

@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "देवो के देव — Devo ke Dev | God of All Gods";
+export const alt = "देवों के देव — Devo ke Dev | God of All Gods";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -44,7 +44,7 @@ export default function OpengraphImage() {
           }}
         >
           <div style={{ fontSize: 40, color: "#f0c24b", marginBottom: 8 }}>
-            ॥ देवो के देव ॥
+            ॥ देवों के देव ॥
           </div>
           <div
             style={{
