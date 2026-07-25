@@ -3,12 +3,12 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SectionHeading from "../SectionHeading";
+import GodSectionHeading from "./GodSectionHeading";
 import type { ExperienceContent } from "@/lib/site/types";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Experience({
+export default function GodExperience({
   content,
 }: {
   content: ExperienceContent;
@@ -27,7 +27,7 @@ export default function Experience({
       () => {
         const stage = stageRef.current;
         if (!stage) return;
-        const slides = gsap.utils.toArray<HTMLElement>(".exp-slide", stage);
+        const slides = gsap.utils.toArray<HTMLElement>(".gexp-slide", stage);
         const count = slides.length;
 
         gsap.set(stage, { height: "72vh" });
@@ -39,7 +39,7 @@ export default function Experience({
           paddingBottom: 0,
         });
         gsap.set(slides.slice(1), { autoAlpha: 0 });
-        gsap.set(".exp-progress", { autoAlpha: 1 });
+        gsap.set(".gexp-progress", { autoAlpha: 1 });
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -61,11 +61,9 @@ export default function Experience({
         });
 
         slides.forEach((slide, i) => {
-          const company = slide.querySelector(".exp-company");
-          const detail = slide.querySelectorAll(".exp-detail");
+          const company = slide.querySelector(".gexp-company");
+          const detail = slide.querySelectorAll(".gexp-detail");
 
-          // Overlapping crossfade: the incoming slide starts before the
-          // outgoing one finishes, so the stage is never empty.
           if (i > 0) {
             tl.fromTo(
               slide,
@@ -94,14 +92,9 @@ export default function Experience({
             );
           }
         });
-        // Keep the timeline's full duration so the last slide holds
         tl.to({}, { duration: 0.4 }, count - 0.4);
 
-        tl.to(
-          ".exp-bar",
-          { scaleX: 1, ease: "none", duration: count },
-          0
-        );
+        tl.to(".gexp-bar", { scaleX: 1, ease: "none", duration: count }, 0);
 
         return () => {
           gsap.set(stage, { clearProps: "height" });
@@ -114,39 +107,41 @@ export default function Experience({
 
   return (
     <section
-      id="experience"
+      id="eras"
       ref={sectionRef}
       className="relative border-t border-line px-5 py-28 sm:px-8 sm:py-36"
     >
       <div className="mx-auto max-w-[110rem]">
-        <SectionHeading
-          index={content.heading.index}
-          label={content.heading.label}
-          title={content.heading.title}
-        />
+        <GodSectionHeading content={content.heading} />
 
         <div ref={stageRef} className="relative">
           {content.items.map((exp, i) => (
             <article
               key={exp.company}
-              className="exp-slide border-t border-line py-12 first:border-t-0 lg:flex lg:items-center"
+              className="gexp-slide border-t border-line py-12 first:border-t-0 lg:flex lg:items-center"
             >
               <div className="grid w-full items-center gap-8 lg:grid-cols-2 lg:gap-16">
                 <div className="relative">
                   <span
                     aria-hidden
-                    className="display text-outline pointer-events-none absolute -top-10 left-0 -z-10 text-[clamp(5rem,11vw,11rem)] opacity-50 select-none lg:-top-16"
+                    className="god-deva pointer-events-none absolute -top-10 left-0 -z-10 select-none text-[clamp(5rem,11vw,11rem)] leading-none text-accent/10 lg:-top-16"
                   >
-                    {String(i + 1).padStart(2, "0")}
+                    {["०१", "०२", "०३", "०४", "०५", "०६"][i] ??
+                      String(i + 1).padStart(2, "0")}
                   </span>
+                  {exp.era && (
+                    <p className="label mb-2 !normal-case !tracking-[0.14em] !text-saffron">
+                      {exp.era}
+                    </p>
+                  )}
                   <p className="label mb-4">{exp.period}</p>
-                  <h3 className="exp-company display text-[clamp(2.2rem,4.8vw,5.2rem)] uppercase leading-[0.95] text-foreground">
+                  <h3 className="gexp-company god-display god-gradient-text text-[clamp(2rem,4.2vw,4.6rem)] uppercase leading-[1]">
                     {exp.companyUrl ? (
                       <a
                         href={exp.companyUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="transition-colors hover:text-accent"
+                        className="transition-opacity hover:opacity-80"
                       >
                         {exp.company}
                       </a>
@@ -154,16 +149,16 @@ export default function Experience({
                       exp.company
                     )}
                   </h3>
-                  <p className="exp-detail serif-accent mt-3 text-[clamp(1.4rem,2.2vw,2.2rem)] text-muted">
+                  <p className="gexp-detail mt-3 text-[clamp(1.2rem,1.9vw,1.9rem)] italic text-muted">
                     {exp.role}
                   </p>
                 </div>
 
                 <div>
-                  <p className="exp-detail max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+                  <p className="gexp-detail max-w-xl text-base leading-relaxed text-muted sm:text-lg">
                     {exp.description}
                   </p>
-                  <ul className="exp-detail mt-6 flex flex-wrap gap-2">
+                  <ul className="gexp-detail mt-6 flex flex-wrap gap-2">
                     {exp.tags.map((tag) => (
                       <li
                         key={tag}
@@ -179,12 +174,12 @@ export default function Experience({
           ))}
 
           {/* Desktop scrub progress, revealed by JS only */}
-          <div className="exp-progress invisible absolute bottom-0 left-0 right-0 hidden items-center gap-5 opacity-0 lg:flex">
+          <div className="gexp-progress invisible absolute bottom-0 left-0 right-0 hidden items-center gap-5 opacity-0 lg:flex">
             <span className="label !text-accent">
               <span ref={counterRef}>01</span> / {String(content.items.length).padStart(2, "0")}
             </span>
             <span className="relative h-px grow bg-line">
-              <span className="exp-bar absolute inset-0 origin-left scale-x-0 bg-accent" />
+              <span className="gexp-bar absolute inset-0 origin-left scale-x-0 bg-accent" />
             </span>
           </div>
         </div>

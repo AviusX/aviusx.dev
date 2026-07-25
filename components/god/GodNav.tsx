@@ -3,12 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import ThemeToggle from "./ThemeToggle";
 import type { NavContent } from "@/lib/site/types";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Nav({ content }: { content: NavContent }) {
+export default function GodNav({ content }: { content: NavContent }) {
   const progressRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
 
@@ -51,22 +50,23 @@ export default function Nav({ content }: { content: NavContent }) {
         aria-label="Main"
         className="mx-auto flex h-16 max-w-[110rem] items-center justify-between px-5 sm:px-8"
       >
-        <a
-          href="#top"
-          className="display text-lg tracking-tight text-foreground"
-        >
-          {content.logoText}
+        <a href="#top" className="god-deva flex items-baseline gap-2 text-lg">
           <span className="text-accent">{content.logoAccent}</span>
+          <span className="hidden text-foreground sm:inline">
+            {content.logoText}
+          </span>
         </a>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-8 lg:flex">
           {content.links.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
                 className="group label flex items-baseline gap-1.5 !text-foreground/70 transition-colors hover:!text-foreground"
               >
-                <span className="text-[0.55rem] text-accent">{link.index}</span>
+                <span className="god-deva text-[0.7rem] text-accent">
+                  {link.index}
+                </span>
                 <span className="relative">
                   {link.label}
                   <span className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-accent transition-transform duration-300 group-hover:origin-left group-hover:scale-x-100" />
@@ -76,9 +76,25 @@ export default function Nav({ content }: { content: NavContent }) {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
-          <span className="label hidden lg:block">{content.location}</span>
-          <ThemeToggle />
+        <div className="flex items-center gap-5">
+          <span className="label hidden xl:block">{content.location}</span>
+          {content.externalLink && (
+            <a
+              href={content.externalLink.href}
+              className="group inline-flex items-center gap-2 border border-accent/50 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-accent transition-all duration-300 hover:bg-accent hover:text-accent-ink hover:shadow-[0_0_24px_rgba(240,194,75,0.35)]"
+            >
+              {content.externalLink.label}
+              <svg
+                className="h-3 w-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+              </svg>
+            </a>
+          )}
         </div>
       </nav>
     </header>

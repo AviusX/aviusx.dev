@@ -30,13 +30,15 @@ function Row({
             {items.map((tech) => (
               <span key={tech} className="flex items-center">
                 <span
-                  className={`display whitespace-nowrap px-6 text-[clamp(2.2rem,4.5vw,4.5rem)] uppercase sm:px-9 ${
-                    outlined ? "text-outline-strong" : "text-foreground"
+                  className={`god-display whitespace-nowrap px-6 text-[clamp(2rem,4.2vw,4.2rem)] uppercase sm:px-9 ${
+                    outlined ? "god-outline-text" : "god-gradient-text"
                   }`}
                 >
                   {tech}
                 </span>
-                <span className="text-xl text-accent">{separator}</span>
+                <span className="god-deva text-xl text-saffron">
+                  {separator}
+                </span>
               </span>
             ))}
           </div>
@@ -46,27 +48,27 @@ function Row({
   );
 }
 
-export default function TechMarquee({ content }: { content: MarqueeContent }) {
+export default function GodMarquee({ content }: { content: MarqueeContent }) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = gsap.context(() => {
-      const t1 = gsap.to(".marquee-a", {
+      const t1 = gsap.to(".gmarquee-a", {
         xPercent: -50,
         ease: "none",
         duration: 42,
         repeat: -1,
       });
       const t2 = gsap.fromTo(
-        ".marquee-b",
+        ".gmarquee-b",
         { xPercent: -50 },
         { xPercent: 0, ease: "none", duration: 48, repeat: -1 }
       );
 
-      // Scroll velocity feeds marquee speed and skew
-      const skewTo = gsap.quickTo(".marquee-wrap", "skewX", {
+      // Scroll velocity feeds marquee speed and skew — anime speed lines
+      const skewTo = gsap.quickTo(".gmarquee-wrap", "skewX", {
         duration: 0.4,
         ease: "power2.out",
       });
@@ -99,17 +101,17 @@ export default function TechMarquee({ content }: { content: MarqueeContent }) {
       className="cv-auto overflow-hidden border-t border-line py-20 sm:py-24"
     >
       <p className="label mb-12 px-5 text-center sm:px-8">{content.label}</p>
-      <div className="marquee-wrap space-y-4 will-change-transform">
+      <div className="gmarquee-wrap space-y-4 will-change-transform">
         <Row
           items={content.items.slice(0, half)}
           separator={content.separator}
-          trackClass="marquee-a"
+          trackClass="gmarquee-a"
         />
         <Row
           items={content.items.slice(half)}
           separator={content.separator}
           outlined
-          trackClass="marquee-b"
+          trackClass="gmarquee-b"
         />
       </div>
     </section>

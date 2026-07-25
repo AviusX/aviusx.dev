@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { Fragment, useEffect, useRef, useState, type CSSProperties } from "react";
 import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Rich from "../Rich";
+import type { HeroContent } from "@/lib/site/types";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,7 +36,7 @@ function Chars({
   );
 }
 
-export default function Hero() {
+export default function Hero({ content }: { content: HeroContent }) {
   const sectionRef = useRef<HTMLElement>(null);
   const line1Ref = useRef<HTMLSpanElement>(null);
   const line2Ref = useRef<HTMLSpanElement>(null);
@@ -84,22 +86,22 @@ export default function Hero() {
         <div className="hero-fade" style={{ "--d": "0.15s" } as CSSProperties}>
           <span className="inline-flex items-center gap-2.5 border border-line bg-surface/70 px-4 py-2 backdrop-blur-sm">
             <span className="relative flex h-1.5 w-1.5 rounded-full bg-accent text-accent ping-dot" />
-            <span className="label !text-foreground/80">
-              Founding Engineer at Thesys
-            </span>
+            <span className="label !text-foreground/80">{content.badge}</span>
           </span>
         </div>
 
         {/* Kinetic name */}
         <div className="my-10">
           <h1 className="display select-none text-foreground">
-            <span className="sr-only">Hrijul Bhatnagar</span>
+            <span className="sr-only">
+              {content.titleLine1} {content.titleLine2}
+            </span>
             <span
               ref={line1Ref}
               aria-hidden
               className="flex justify-between text-[clamp(3.5rem,12.5vw,14.5rem)] will-change-transform"
             >
-              <Chars text="HRIJUL" base={0.1} />
+              <Chars text={content.titleLine1} base={0.1} />
             </span>
 
             <span
@@ -109,8 +111,9 @@ export default function Hero() {
             >
               <span className="hero-rule h-px grow bg-line" style={{ "--d": "1s" } as CSSProperties} />
               <span className="serif-accent text-[clamp(1.1rem,2.4vw,2rem)] text-muted">
-                also known online as{" "}
-                <span className="text-accent">AviusX</span>
+                {content.akaPre}
+                <span className="text-accent">{content.akaHighlight}</span>
+                {content.akaPost}
               </span>
             </span>
 
@@ -119,7 +122,7 @@ export default function Hero() {
               aria-hidden
               className="flex justify-between text-[clamp(3.5rem,12.5vw,14.5rem)] will-change-transform"
             >
-              <Chars text="BHATNAGAR" base={0.3} />
+              <Chars text={content.titleLine2} base={0.3} />
             </span>
           </h1>
         </div>
@@ -134,12 +137,13 @@ export default function Hero() {
               className="hero-fade max-w-xl text-lg leading-relaxed text-muted sm:text-xl"
               style={{ "--d": "1.05s" } as CSSProperties}
             >
-              Building the future of{" "}
-              <em className="serif-accent text-[1.15em] text-foreground">
-                generative UI
-              </em>{" "}
-              — turning LLM outputs into live, interactive interfaces.
-              Engineer, cybersecurity enthusiast, and maker of things.
+              <Rich
+                segments={content.tagline}
+                styles={{
+                  em: "serif-accent text-[1.15em] text-foreground",
+                  accent: "text-accent",
+                }}
+              />
             </p>
 
             <div
@@ -147,10 +151,10 @@ export default function Hero() {
               style={{ "--d": "1.2s" } as CSSProperties}
             >
               <a
-                href="#projects"
+                href={content.primaryCta.href}
                 className="group inline-flex h-12 items-center gap-3 bg-foreground px-7 text-sm font-medium text-background transition-colors duration-300 hover:bg-accent hover:text-accent-ink"
               >
-                View my work
+                {content.primaryCta.label}
                 <svg
                   className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
                   fill="none"
@@ -162,10 +166,10 @@ export default function Hero() {
                 </svg>
               </a>
               <a
-                href="#contact"
+                href={content.secondaryCta.href}
                 className="group label relative !text-foreground"
               >
-                Get in touch
+                {content.secondaryCta.label}
                 <span className="absolute -bottom-1.5 left-0 h-px w-full bg-foreground transition-colors group-hover:bg-accent" />
               </a>
             </div>
@@ -177,10 +181,20 @@ export default function Hero() {
             style={{ "--d": "1.35s" } as CSSProperties}
           >
             <div className="border border-line bg-surface/70 px-4 py-3 backdrop-blur-sm">
-              <span className="text-accent">$</span> location:{" "}
-              <span className="text-foreground">bengaluru</span> | stack:{" "}
-              <span className="text-foreground">ts, react, llms</span> |
-              status: <span className="text-accent">building</span>
+              <span className="text-accent">$</span>{" "}
+              {content.terminal.map((part, i) => (
+                <Fragment key={part.label}>
+                  {i > 0 && " | "}
+                  {part.label}:{" "}
+                  <span
+                    className={
+                      part.accentValue ? "text-accent" : "text-foreground"
+                    }
+                  >
+                    {part.value}
+                  </span>
+                </Fragment>
+              ))}
               <span className="caret ml-1 inline-block h-3 w-[7px] translate-y-0.5 bg-accent" />
             </div>
           </div>
@@ -193,7 +207,7 @@ export default function Hero() {
         style={{ "--d": "1.6s" } as CSSProperties}
       >
         <div className="scroll-nudge flex flex-col items-center gap-1.5">
-          <span className="label !text-[0.55rem]">Scroll</span>
+          <span className="label !text-[0.55rem]">{content.scrollLabel}</span>
           <svg className="h-3.5 w-3.5 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
           </svg>
