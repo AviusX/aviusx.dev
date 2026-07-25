@@ -116,9 +116,11 @@ export default function GodHero({ content }: { content: HeroContent }) {
       >
         {/* Badge */}
         <div className="hero-fade" style={{ "--d": "0.15s" } as CSSProperties}>
-          <span className="inline-flex items-center gap-2.5 border border-line bg-surface/60 px-4 py-2 backdrop-blur-sm">
-            <span className="relative flex h-1.5 w-1.5 rounded-full bg-accent text-accent ping-dot" />
-            <span className="label !text-foreground/85">{content.badge}</span>
+          <span className="inline-flex max-w-full items-center gap-2 border border-line bg-surface/60 px-3 py-2 backdrop-blur-sm sm:gap-2.5 sm:px-4">
+            <span className="relative flex h-1.5 w-1.5 shrink-0 rounded-full bg-accent text-accent ping-dot" />
+            <span className="label !text-[0.6rem] !tracking-[0.14em] !text-foreground/85 sm:!text-[0.6875rem] sm:!tracking-[0.22em]">
+              {content.badge}
+            </span>
           </span>
         </div>
 
@@ -169,7 +171,7 @@ export default function GodHero({ content }: { content: HeroContent }) {
           style={{ "--d": "1.1s" } as CSSProperties}
         >
           <span
-            className="hero-rule h-px grow bg-accent/40"
+            className="hero-rule h-px w-6 shrink-0 bg-accent/40 sm:w-auto sm:grow"
             style={{ "--d": "1.15s" } as CSSProperties}
           />
           <span className="god-ink-shadow text-[clamp(0.95rem,1.9vw,1.35rem)] italic text-foreground/80">
@@ -179,7 +181,7 @@ export default function GodHero({ content }: { content: HeroContent }) {
             </span>
           </span>
           <span
-            className="hero-rule h-px grow bg-accent/40"
+            className="hero-rule h-px w-6 shrink-0 bg-accent/40 sm:w-auto sm:grow"
             style={{ "--d": "1.15s" } as CSSProperties}
           />
         </div>
@@ -205,7 +207,7 @@ export default function GodHero({ content }: { content: HeroContent }) {
         >
           <a
             href={content.primaryCta.href}
-            className="god-btn group inline-flex h-13 items-center gap-3 bg-accent px-8 text-sm font-semibold uppercase tracking-[0.14em] text-accent-ink transition-all duration-300 hover:shadow-[0_0_36px_rgba(240,194,75,0.45)]"
+            className="god-btn group inline-flex h-13 items-center gap-2 whitespace-nowrap bg-accent px-5 text-xs font-semibold uppercase tracking-[0.08em] text-accent-ink transition-all duration-300 hover:shadow-[0_0_36px_rgba(240,194,75,0.45)] sm:gap-3 sm:px-8 sm:text-sm sm:tracking-[0.14em]"
           >
             {content.primaryCta.label}
             <svg
