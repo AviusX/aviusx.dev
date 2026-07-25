@@ -11,6 +11,10 @@ The same app serves two domains from one codebase:
   react-three-fiber cosmic hero (nebula, sacred-geometry mandala, particle
   halo, third-eye core)
 
+See **[docs/THEMES.md](docs/THEMES.md)** for the multi-theme architecture:
+how themes are isolated from each other's bundles, and how to add or edit
+themes.
+
 ## Development
 
 ```bash
@@ -38,9 +42,7 @@ bun scripts/shot-god.mjs     # god theme, desktop + mobile → /tmp/devoke-shots
   and `/sitemap.xml` to the statically generated `/god` routes. Each theme is
   its own route group with its own root layout, fonts, metadata, and JSON-LD —
   nothing leaks between theme bundles (three.js never ships to aviusx.dev).
-- **Adding a theme**: create `lib/site/<theme>.ts`, a route group
-  `app/(<theme>)/` with a root layout + page (+ theme components), theme
-  tokens in `app/globals.css`, and map its domain in `proxy.ts`.
+  Full details in [docs/THEMES.md](docs/THEMES.md).
 - **Single RAF loop**: the GSAP ticker drives Lenis, ScrollTrigger, and every
   OGL canvas. All canvases (including the god R3F scene) pause when
   off-screen or the tab is hidden.
