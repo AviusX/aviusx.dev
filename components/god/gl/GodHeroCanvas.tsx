@@ -112,7 +112,14 @@ void main() {
 
 function Nebula() {
   const material = useRef<THREE.ShaderMaterial>(null);
-  const { viewport } = useThree();
+  const { viewport, camera } = useThree();
+
+  // The plane sits at z=-1, behind the focal plane that `viewport` is
+  // measured at, so it must be sized for its own depth — otherwise it
+  // leaves an uncovered black border around the scene (glaring on
+  // portrait screens, where the vignette doesn't reach the edges).
+  const planeCenter = useMemo(() => new THREE.Vector3(0, 0, -1), []);
+  const planeViewport = viewport.getCurrentViewport(camera, planeCenter);
 
   const uniforms = useMemo(
     () => ({
@@ -132,7 +139,10 @@ function Nebula() {
   });
 
   return (
-    <mesh scale={[viewport.width, viewport.height, 1]} position={[0, 0, -1]}>
+    <mesh
+      scale={[planeViewport.width * 1.02, planeViewport.height * 1.02, 1]}
+      position={[0, 0, -1]}
+    >
       <planeGeometry />
       <shaderMaterial
         ref={material}
