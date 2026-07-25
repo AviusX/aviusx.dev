@@ -3,13 +3,14 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SectionHeading from "../SectionHeading";
+import GodSectionHeading from "./GodSectionHeading";
 import Magnetic from "../Magnetic";
+import Rich from "../Rich";
 import type { ContactContent } from "@/lib/site/types";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Contact({ content }: { content: ContactContent }) {
+export default function GodContact({ content }: { content: ContactContent }) {
   const { email } = content;
   const sectionRef = useRef<HTMLElement>(null);
   const emailRef = useRef<HTMLAnchorElement>(null);
@@ -18,7 +19,7 @@ export default function Contact({ content }: { content: ContactContent }) {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = gsap.context(() => {
-      gsap.from(".contact-reveal", {
+      gsap.from(".gcontact-reveal", {
         y: 40,
         opacity: 0,
         duration: 1,
@@ -33,7 +34,7 @@ export default function Contact({ content }: { content: ContactContent }) {
 
       // Per-character wave on the giant email address
       const chars = gsap.utils.toArray<HTMLElement>(
-        ".email-char",
+        ".gemail-char",
         emailRef.current
       );
       let wave: gsap.core.Timeline | null = null;
@@ -67,22 +68,18 @@ export default function Contact({ content }: { content: ContactContent }) {
 
   return (
     <section
-      id="contact"
+      id="summon"
       ref={sectionRef}
       className="cv-auto relative border-t border-line px-5 pb-24 pt-28 sm:px-8 sm:pt-36"
     >
       <div className="mx-auto max-w-[110rem]">
-        <SectionHeading
-          index={content.heading.index}
-          label={content.heading.label}
-          title={content.heading.title}
-        />
+        <GodSectionHeading content={content.heading} />
 
-        <p className="contact-reveal max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
+        <p className="gcontact-reveal max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
           {content.prose}
         </p>
 
-        <div className="contact-reveal mt-16 sm:mt-20">
+        <div className="gcontact-reveal mt-16 sm:mt-20">
           <p className="label mb-5">{content.emailLabel}</p>
           <a
             ref={emailRef}
@@ -92,10 +89,13 @@ export default function Contact({ content }: { content: ContactContent }) {
           >
             <span
               aria-hidden
-              className="display block whitespace-nowrap text-[clamp(0.8rem,4vw,4.6rem)] uppercase tracking-tight text-foreground transition-colors duration-300 group-hover:text-accent"
+              className="god-display block whitespace-nowrap text-[clamp(0.8rem,3.6vw,4rem)] uppercase tracking-tight transition-all duration-300 group-hover:brightness-125"
             >
               {email.split("").map((char, i) => (
-                <span key={i} className="email-char inline-block will-change-transform">
+                <span
+                  key={i}
+                  className="gemail-char god-gradient-text inline-block will-change-transform"
+                >
                   {char}
                 </span>
               ))}
@@ -106,7 +106,7 @@ export default function Contact({ content }: { content: ContactContent }) {
           </a>
         </div>
 
-        <div className="contact-reveal mt-20 grid grid-cols-2 gap-px border border-line bg-line lg:grid-cols-4">
+        <div className="gcontact-reveal mt-20 grid grid-cols-2 gap-px border border-line bg-line lg:grid-cols-4">
           {content.socialLinks.map((link) => (
             <Magnetic key={link.label} strength={0.1} className="bg-background">
               <a
@@ -132,6 +132,19 @@ export default function Contact({ content }: { content: ContactContent }) {
             </Magnetic>
           ))}
         </div>
+
+        {content.outro && (
+          <p className="gcontact-reveal mt-14 text-base italic text-muted sm:text-lg">
+            <Rich
+              segments={content.outro}
+              styles={{
+                em: "god-deva not-italic text-accent",
+                accent:
+                  "not-italic text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent",
+              }}
+            />
+          </p>
+        )}
       </div>
     </section>
   );

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="46%" r="60%">
+      <stop offset="0%" stop-color="#2a1454" />
+      <stop offset="100%" stop-color="#060309" />
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffedb0" />
+      <stop offset="55%" stop-color="#f0c24b" />
+      <stop offset="100%" stop-color="#b47416" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#halo)" />
+  <circle cx="32" cy="30" r="21" fill="none" stroke="#f0c24b" stroke-opacity="0.35" stroke-width="1.5" stroke-dasharray="3 4" />
+  <text
+    x="32"
+    y="41"
+    text-anchor="middle"
+    font-family="'Rozha One', 'Noto Serif Devanagari', 'Kohinoor Devanagari', serif"
+    font-size="30"
+    fill="url(#gold)"
+  >P</text>
+</svg>

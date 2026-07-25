@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SectionHeading from "../SectionHeading";
+import GodSectionHeading from "./GodSectionHeading";
 import LazyMount from "../gl/LazyMount";
 import CardShader from "../gl/CardShader";
 import type { ProjectsContent } from "@/lib/site/types";
@@ -18,7 +18,11 @@ function ArrowIcon() {
   );
 }
 
-export default function Projects({ content }: { content: ProjectsContent }) {
+export default function GodProjects({
+  content,
+}: {
+  content: ProjectsContent;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const [hovered, setHovered] = useState<number | null>(null);
 
@@ -27,14 +31,12 @@ export default function Projects({ content }: { content: ProjectsContent }) {
 
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const wraps = gsap.utils.toArray<HTMLElement>(
-        ".proj-wrap",
+        ".gproj-wrap",
         sectionRef.current
       );
 
-      // The wraps are position:sticky, so their bounding rects are unreliable
-      // whenever ScrollTrigger refreshes mid-scroll (the element may be
-      // measured in its "stuck" position). Derive trigger points from static
-      // layout offsets instead, which sticky positioning never affects.
+      // Sticky wraps have unreliable bounding rects mid-scroll, so trigger
+      // points derive from static layout offsets (see main Projects).
       const layoutTop = (el: HTMLElement) => {
         let y = 0;
         let node: HTMLElement | null = el;
@@ -46,10 +48,8 @@ export default function Projects({ content }: { content: ProjectsContent }) {
       };
 
       wraps.forEach((wrap, i) => {
-        const card = wrap.querySelector(".proj-card");
+        const card = wrap.querySelector(".gproj-card");
 
-        // Transform-only entrance: the card must never change opacity, so it
-        // can never be caught invisible regardless of scroll direction.
         gsap.from(card, {
           y: 60,
           duration: 0.7,
@@ -61,9 +61,6 @@ export default function Projects({ content }: { content: ProjectsContent }) {
           },
         });
 
-        // Recede via scale only while the next card slides over. The card
-        // stays fully opaque: fading it would let the text of deeper cards
-        // in the stack bleed through its background.
         if (i < wraps.length - 1) {
           const next = wraps[i + 1];
           gsap.to(card, {
@@ -84,26 +81,22 @@ export default function Projects({ content }: { content: ProjectsContent }) {
 
   return (
     <section
-      id="projects"
+      id="feats"
       ref={sectionRef}
       className="relative border-t border-line px-5 py-28 sm:px-8 sm:py-36"
     >
       <div className="mx-auto max-w-[110rem]">
-        <SectionHeading
-          index={content.heading.index}
-          label={content.heading.label}
-          title={content.heading.title}
-        />
+        <GodSectionHeading content={content.heading} />
 
         <div>
           {content.items.map((project, i) => (
             <div
               key={project.title}
-              className="proj-wrap md:sticky"
+              className="gproj-wrap md:sticky"
               style={{ top: `calc(13vh + ${i * 1.75}rem)` }}
             >
               <div
-                className="proj-card mb-10 origin-top border border-line bg-surface will-change-transform md:mb-[16vh]"
+                className="gproj-card mb-10 origin-top border border-line bg-surface will-change-transform md:mb-[16vh]"
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
               >
@@ -113,13 +106,18 @@ export default function Projects({ content }: { content: ProjectsContent }) {
                       <div className="mb-8 flex items-center justify-between">
                         <span className="label !text-accent">
                           {String(i + 1).padStart(2, "0")}
-                          {project.featured ? " / Featured" : ""}
+                          {project.featured ? " / Legendary" : ""}
                         </span>
                         <span className="label hidden sm:block">
                           {project.tags[0]}
                         </span>
                       </div>
-                      <h3 className="display text-[clamp(2rem,4.8vw,4.8rem)] uppercase leading-[0.95] text-foreground transition-colors duration-300">
+                      {project.subtitle && (
+                        <p className="god-deva mb-2 text-base text-saffron">
+                          ॥ {project.subtitle} ॥
+                        </p>
+                      )}
+                      <h3 className="god-display god-gradient-text text-[clamp(1.8rem,4.2vw,4.2rem)] uppercase leading-[1]">
                         {project.title}
                       </h3>
                       <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
@@ -178,9 +176,10 @@ export default function Projects({ content }: { content: ProjectsContent }) {
                       <div className="flex h-full items-center justify-center">
                         <span
                           aria-hidden
-                          className="display text-outline select-none text-[10rem]"
+                          className="god-deva select-none text-[9rem] text-accent/15"
                         >
-                          {String(i + 1).padStart(2, "0")}
+                          {["०१", "०२", "०३", "०४"][i] ??
+                            String(i + 1).padStart(2, "0")}
                         </span>
                       </div>
                     )}

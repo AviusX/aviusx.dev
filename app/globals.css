@@ -24,6 +24,22 @@
   --accent-ink: #0d0c0a;
 }
 
+/* ---------- god theme (devoke.dev) — fixed cosmic dark ---------- */
+
+[data-theme="god"] {
+  --background: #060309;
+  --foreground: #f3e9d2;
+  --muted: #a3906f;
+  --line: rgba(240, 194, 75, 0.16);
+  --surface: #0e0916;
+  --accent: #f0c24b;
+  --accent-vivid: #ffd76e;
+  --accent-ink: #1a0f04;
+  --god-saffron: #ff7a1a;
+  --god-ember: #ff5e3a;
+  --god-violet: #7c3aed;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -33,6 +49,9 @@
   --color-accent: var(--accent);
   --color-accent-vivid: var(--accent-vivid);
   --color-accent-ink: var(--accent-ink);
+  --color-saffron: var(--god-saffron);
+  --color-ember: var(--god-ember);
+  --color-divine-violet: var(--god-violet);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-archivo);
@@ -222,6 +241,122 @@ body {
   animation: ping-dot 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
+/* ---------- god theme primitives (devoke.dev) ---------- */
+
+.god-display {
+  font-family: var(--font-god-display), serif;
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  line-height: 1.02;
+}
+
+.god-deva {
+  font-family: var(--font-god-deva), serif;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+/* Molten-gold gradient text. No filter here: drop-shadow forces a
+   compositing surface per element, which shows box seams over the
+   bright WebGL scene. Glow comes from the halo/canvas instead. */
+.god-gradient-text {
+  background: linear-gradient(
+    180deg,
+    #ffedb0 0%,
+    #f5cd62 38%,
+    #d9932a 72%,
+    #9c6412 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Legibility helper for muted text sitting over the bright divine core */
+.god-ink-shadow {
+  text-shadow: 0 1px 14px rgba(6, 3, 9, 0.9), 0 0 4px rgba(6, 3, 9, 0.7);
+}
+
+.god-outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgba(240, 194, 75, 0.45);
+}
+
+/* SSR-painted halo behind the hero title: glows before any JS runs */
+.god-halo {
+  border-radius: 9999px;
+  background: radial-gradient(
+    closest-side,
+    rgba(240, 194, 75, 0.17),
+    rgba(255, 122, 26, 0.07) 42%,
+    rgba(124, 58, 237, 0.06) 62%,
+    transparent 74%
+  );
+}
+
+@keyframes god-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.god-halo-ring {
+  border: 1px dashed rgba(240, 194, 75, 0.32);
+  border-radius: 9999px;
+  animation: god-spin 70s linear infinite;
+}
+
+.god-halo-ring--reverse {
+  border-style: solid;
+  border-color: rgba(240, 194, 75, 0.14);
+  animation-direction: reverse;
+  animation-duration: 110s;
+}
+
+@keyframes divine-pulse {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.035);
+  }
+}
+
+.divine-pulse {
+  animation: divine-pulse 4.5s ease-in-out infinite;
+}
+
+/* Anime power-up sheen sweeping across on hover */
+.god-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.god-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -70%;
+  width: 45%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+
+.god-btn:hover::after {
+  left: 125%;
+}
+
 /* ---------- performance / a11y ---------- */
 
 .cv-auto {
@@ -239,7 +374,9 @@ body {
   }
   .scroll-nudge,
   .ping-dot::before,
-  .caret {
+  .caret,
+  .god-halo-ring,
+  .divine-pulse {
     animation: none;
   }
   html {
